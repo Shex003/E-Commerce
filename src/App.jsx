@@ -12,6 +12,7 @@ import Register from './components/Register/Register';
 import Products from './components/Products/Products';
 import Notfound from './components/Notfound/Notfound';
 import Login from './components/Login/Login';
+import UserContextProvider from './context/userContext';
 
 
 let x = createBrowserRouter([
@@ -30,8 +31,12 @@ let x = createBrowserRouter([
 
 function App() {
 
-  return <RouterProvider router={x}></RouterProvider>
-    
+  return(
+    <UserContextProvider>
+          <RouterProvider router={x}></RouterProvider>
+    </UserContextProvider>
+
+  )
   
 }
 

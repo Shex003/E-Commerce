@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import style from './Register.module.css'
 import { useFormik } from 'formik';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
+import { userContext } from '../../context/userContext';
 
 // export default function Register() {
 // let navigate = useNavigate()
@@ -18,6 +19,8 @@ import * as Yup from 'yup';
 
 export default function Register(){
 
+let {setLogin} = useContext(userContext)
+
 const [apiError,setError] = useState('')
 const [isLoading,setLoading] = useState(false)
 
@@ -30,6 +33,8 @@ axios.post('https://ecommerce.routemisr.com/api/v1/auth/signup',formsData)
 .then((response)=>{console.log('success',response)
     
 if(response.data.message === 'success') {
+    localStorage.setItem('useToken',response.data.token)
+    setLogin(response.data.token)
     setLoading(false)
     navigate('/login')
 }

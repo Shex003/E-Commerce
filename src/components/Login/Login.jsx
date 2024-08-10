@@ -1,12 +1,15 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import style from './Login.module.css'
 import { useFormik } from 'formik';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
+import { userContext } from '../../context/userContext';
 
 
 export default function Login(){
+
+    let {setLogin} = useContext(userContext)
 
   const [apiError,setError] = useState('')
   const [isLoading,setLoading] = useState(false)
@@ -20,8 +23,10 @@ export default function Login(){
   .then((response)=>{console.log('success',response)
       
   if(response.data.message === 'success') {
-      setLoading(false)
-      navigate('/')
+    localStorage.setItem('useToken',response.data.token)
+    setLogin(response.data.token)
+    setLoading(false)
+    navigate('/')
   }
   })
   
