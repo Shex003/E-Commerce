@@ -1,5 +1,6 @@
 import React from 'react'
-import './About.css'
+import style from './About.module.css'
+
 
 export default function About() {
   return <>

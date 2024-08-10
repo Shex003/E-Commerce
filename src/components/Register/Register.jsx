@@ -19,7 +19,7 @@ import * as Yup from 'yup';
 export default function Register(){
 
 const [apiError,setError] = useState('')
-const [isLoadind,setLoading] = useState(false)
+const [isLoading,setLoading] = useState(false)
 
 let navigate = useNavigate()
 function handleRegister(formsData) {
@@ -90,7 +90,7 @@ let formik = useFormik({
                 <div>
                     <label htmlFor="your-email" className="block text-sm font-medium text-gray-700">Email</label>
                     <div className="mt-1">
-                        <input onBlur={formik.handleBlur} onChange={formik.handleChange} value={formik.values.email} name='email' id='your-email' type="email" autocomplete="email-address" required
+                        <input onBlur={formik.handleBlur} onChange={formik.handleChange} value={formik.values.email} name='email' id='your-email' type="email" autocomplete="email" required
                             className="px-2 py-3 mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-green-500 focus:outline-none focus:ring-green-500 sm:text-sm" />
                     </div>
                 </div>
@@ -110,7 +110,7 @@ let formik = useFormik({
                 <div>
                     <label htmlFor="confirm-password" className="block text-sm font-medium text-gray-700">Confirm Password</label>
                     <div className="mt-1">
-                        <input onBlur={formik.handleBlur} onChange={formik.handleChange} value={formik.values.rePassword} name='rePassword' id='confirm-password' type="password" autocomplete="confirm-password" required
+                        <input onBlur={formik.handleBlur} onChange={formik.handleChange} value={formik.values.rePassword} name='rePassword' id='confirm-password' type="password" autocomplete="new-password" required
                             className="px-2 py-3 mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-green-500 focus:outline-none focus:ring-green-500 sm:text-sm" />
                     </div>
                 </div>
@@ -128,9 +128,9 @@ let formik = useFormik({
                 {formik.touched.phone && formik.errors.phone ? <div className="text-red-500 text-sm">{formik.errors.phone}</div> : null}    
 
                 <div>
-                    <button type="submit" disabled={!(formik.isVakid && formik.dirty)}
+                    <button type="submit" disabled={!(formik.isValid && formik.dirty)}
                         className="flex w-full justify-center rounded-md border border-transparent bg-green-400 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-opacity-75 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-offset-2">
-                        {isLoadind? <i className='fa fa-spinner fa-spin mx-3'></i>:null} Register
+                        {isLoading? <i className='fa fa-spinner fa-spin mx-3'></i>:null} Register
                         </button>
                 </div>
             </form>
