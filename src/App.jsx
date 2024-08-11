@@ -13,15 +13,16 @@ import Products from './components/Products/Products';
 import Notfound from './components/Notfound/Notfound';
 import Login from './components/Login/Login';
 import UserContextProvider from './context/userContext';
+import ProtectedRoute from './components/protectedRoute/protectedRoute';
 
 
 let x = createBrowserRouter([
   {path: '', element:<Layout/>, children: [
     {index:true, element:<Home/>},
     {path: 'categories' , element:<Categories/>},
-    {path: 'brands' , element:<Brands/>},
-    {path: 'carts' , element:<Carts/>},
-    {path: 'products' , element:< Products/>},
+    {path: 'brands' , element:<ProtectedRoute><Brands/></ProtectedRoute> },
+    {path: 'carts' , element:<ProtectedRoute><Carts/></ProtectedRoute>},
+    {path: 'products' , element:<ProtectedRoute><Products/></ProtectedRoute>},
     {path: 'login' , element:<Login/>},
     {path: 'register' , element:<Register/>},
     {path: '*' , element:<Notfound/>},

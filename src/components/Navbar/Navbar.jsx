@@ -1,12 +1,21 @@
 import React, { useContext, useState } from 'react';
 import style from './Navbar.module.css';
 import img from '../../assets/img/logo.jpg';
-import {NavLink} from 'react-router-dom';
+import {NavLink, useNavigate} from 'react-router-dom';
 import {userContext} from '../../context/userContext'
 
-
 export default function Navbar() {
-  let {isLogin} = useContext(userContext)
+  let {isLogin, setLogin} = useContext(userContext)
+  let navigate = useNavigate();
+
+  function logOut () {
+    localStorage.removeItem('user.Token');
+    setLogin(null);
+    Navigate('/login')
+  }
+
+
+
   return <>
   <nav className='bg-slate-300 shadow-sm py-4'>
   <div className='flex justify-between lg:items-center flex-col  lg:flex-row'>
@@ -33,7 +42,7 @@ export default function Navbar() {
         <li className='px-2'><NavLink to={'login'}>Login</NavLink></li>
       </>
       
-    :      <li className='px-2'><NavLink to={'logout'}>Logout</NavLink></li>
+    :      <li className='px-2 cursor-pointer'><span onClick={()=>{logOut()}}>Logout</span></li>
 
     }
     
