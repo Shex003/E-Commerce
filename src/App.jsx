@@ -14,6 +14,7 @@ import Notfound from './components/Notfound/Notfound';
 import Login from './components/Login/Login';
 import UserContextProvider from './context/userContext';
 import ProtectedRoute from './components/protectedRoute/protectedRoute';
+import ProductDetails from './components/ProductDetails/ProductDetails';
 
 
 let x = createBrowserRouter([
@@ -23,6 +24,7 @@ let x = createBrowserRouter([
     {path: 'brands' , element:<ProtectedRoute><Brands/></ProtectedRoute> },
     {path: 'carts' , element:<ProtectedRoute><Carts/></ProtectedRoute>},
     {path: 'products' , element:<ProtectedRoute><Products/></ProtectedRoute>},
+    {path: 'productDetails/:id' , element:<ProtectedRoute><ProductDetails/></ProtectedRoute>},
     {path: 'login' , element:<Login/>},
     {path: 'register' , element:<Register/>},
     {path: '*' , element:<Notfound/>},
