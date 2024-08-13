@@ -11,13 +11,13 @@ export default function Navbar() {
   function logOut () {
     localStorage.removeItem('user.Token');
     setLogin(null);
-    Navigate('/login')
-  }
+    navigate('/login')
+    }
 
 
 
   return <>
-  <nav className='bg-slate-300 shadow-sm py-4'>
+  <nav className='bg-slate-300 shadow-sm w-full top-0 fixed z-50'>
   <div className='flex justify-between lg:items-center flex-col  lg:flex-row'>
   <div className='logo flex flex-col lg:flex-row lg:items-center'>
   <img scr={img} width={110} alt='frech-card'/>

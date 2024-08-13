@@ -24,7 +24,7 @@ let x = createBrowserRouter([
     {path: 'brands' , element:<ProtectedRoute><Brands/></ProtectedRoute> },
     {path: 'carts' , element:<ProtectedRoute><Carts/></ProtectedRoute>},
     {path: 'products' , element:<ProtectedRoute><Products/></ProtectedRoute>},
-    {path: 'productDetails/:id' , element:<ProtectedRoute><ProductDetails/></ProtectedRoute>},
+    {path: 'productDetails/:id/:category' , element:<ProtectedRoute><ProductDetails/></ProtectedRoute>},
     {path: 'login' , element:<Login/>},
     {path: 'register' , element:<Register/>},
     {path: '*' , element:<Notfound/>},

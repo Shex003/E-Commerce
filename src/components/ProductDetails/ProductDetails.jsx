@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import style from './ProductDetails.module.css'
 import { useParams } from 'react-router-dom'
 import axios from 'axios'
+import Category from '../Category/Category'
+import Slider from "react-slick";
 
 export default function ProductDetails() {
 
@@ -17,13 +19,25 @@ axios.get(`https://ecommerce.routemisr.com/api/v1/products/${id}`)
 }
 useEffect(()=>{
   getProductDetails() 
-},[])
+},[id,])
+
+var settings = {
+  dots: true,
+  infinite: true,
+  speed: 500,
+  slidesToShow: 1,
+  slidesToScroll: 1,
+};
 
   return <>
    <div className='container'>
    <div className='row justify-center items-center gap-3'>
     <div className='w-1/4'>
-    <img src={details?.imageCover} className='w-full' alt={details?.title} />
+    <Slider {...settings}>
+      {details?.images.map((scr)=>  <img src={scr} className='w-full' alt={details?.title} />
+)}
+      
+    </Slider>
     </div>
     <div className='w-2/4 flex flex-col justify-between h-60'>
     <div>
@@ -41,6 +55,8 @@ useEffect(()=>{
    </div>
     </div>
   </div>
+
+  <Category categoryName={details?.category?.name}/>
     
     </>
 }

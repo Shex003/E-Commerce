@@ -1,43 +1,44 @@
 import React, { useEffect, useState } from 'react'
-import style from './Home.module.css'
+import style from './Category.module.css'
 import axios from 'axios'
+import { Link, useParams } from 'react-router-dom'
 import Loader from '../loader/loader'
-import { Link } from 'react-router-dom'
-import CategorySlider from '../CategorySlider/CategorySlider'
-import MiniSlider from '../MiniSlider/MiniSlider'
 
-export default function Home() {
-
-  const [product, setProduct] = useState([])
+export default function Category(props) {
+  // let category=props.categoryName
+  let {category} = useParams()
   const [isLoading, setLoading] = useState(true)
+  console.log(props)
 
-function getProducts() {
-  axios.get('https://ecommerce.routemisr.com/api/v1/products')
-  .then(({data})=>{setProduct(data.data)
-    setLoading(false)
+  const [product, setDetails] = useState([])
+
+function getRelatedCategory() {
+axios.get(`https://ecommerce.routemisr.com/api/v1/products`)
+.then(({data})=>{
+  let allProducts = data.data;
+  let related = data.data.filter((prod)=>{
+    return prod.category.name === category
   })
-  .catch(()=>{
-    setLoading(false)
-  })
+  console.log(related)
+  setDetails(related)
+  setLoading(false)
+})
+.catch(()=>{
+  setLoading(false)
+})
 }
-
-
 useEffect(()=>{
-  getProducts()
+  getRelatedCategory()
 },[])
 
-
-  return <>
-  <MiniSlider/>
-  <CategorySlider/>
-    <div className='container mt-5'>
+return <>
+<div className='container'>
     {
       !isLoading?
       <div className='row gap-3'>
     {product.map((productInfo)=>{
-      return <div className='w-2/12 px-4 mt-3 product'>
-        <div className='bg-slate-100  p-2'>
-        <Link to={`productDetails/${productInfo.id}/${productInfo.category.name}`}>
+      return <div className='w-2/12 px-4'>
+        <Link to={`/productDetails/${productInfo.id}/${productInfo.category.name}`}>
         <img className='w-full' src={productInfo.imageCover} alt={productInfo.title} />
         <span className='block font-light text-green-600'>{productInfo.category.name}</span>
         <span className=' font-light text-gray-900 '>{productInfo.title.split(' ').slice(0,3).join(' ')}</span>
@@ -46,9 +47,6 @@ useEffect(()=>{
           <span>{productInfo.ratingsQuantity}<i className='fas fa-star text-yellow-300'></i></span>
         </div>
         </Link>
-        <button className='btn mt-3'>Add To Cart</button>
-
-        </div>
        
       </div>
     })}
@@ -57,5 +55,6 @@ useEffect(()=>{
     }
     
     </div>
-    </>
+</>
+
 }
