@@ -7,7 +7,7 @@ export default function Carts() {
 
   const  [cartItems, setCartItems] = useState([]);
 
-  let {getCartProducts, deleteProduct, updateCartItem} = useContext(CartContext);
+  let {getCartProducts, deleteProduct, updateCartItem, clearCart} = useContext(CartContext);
    
    async function getCart(){
     let response = await getCartProducts();
@@ -18,6 +18,13 @@ export default function Carts() {
    async function deleteItem(productId){
     let response = await deleteProduct(productId);
     setCartItems(response.data.data.products)
+    console.log(response);
+
+   }
+
+   async function clearCartItem(){
+    let response = await clearCart();
+    setCartItems([]);
     console.log(response);
 
    }
@@ -40,6 +47,9 @@ export default function Carts() {
     
 
 <div className="relative  overflow-x-auto shadow-md sm:rounded-lg">
+  <div className="text-right">
+    <button onClick={()=> clearCartItem()} className=" bg-red-500 text-white p-2 rounded">Clear Cart</button>
+  </div>
   <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
     <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
       <tr>

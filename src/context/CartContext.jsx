@@ -74,6 +74,20 @@ console.log(headers)
             });
         }
 
-    return <CartContext.Provider value={{addProductToCart, updateCartItem, getCartProducts, deleteProduct}}>{props.children}
+        //Clear Cart products
+
+        async function clearCart(){
+            return await axios.delete(`https://ecommerce.routemisr.com/api/v1/cart`,{
+                headers
+            }) .then((response)=>{
+              console.log(response);
+              return response;
+            }) .catch((error) => {
+              console.log(error);
+              return error;
+            })
+        }
+
+    return <CartContext.Provider value={{addProductToCart, updateCartItem, getCartProducts, deleteProduct, clearCart}}>{props.children}
     </CartContext.Provider>
 }
