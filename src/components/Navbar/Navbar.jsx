@@ -1,12 +1,23 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import style from './Navbar.module.css';
 import img from '../../assets/img/logo.jpg';
 import {NavLink, useNavigate} from 'react-router-dom';
 import {userContext} from '../../context/userContext'
+import {CartContext} from '../../context/CartContext'
 
 export default function Navbar() {
+
   let {isLogin, setLogin} = useContext(userContext)
   let navigate = useNavigate();
+  let {noOfCartItem, getCartProducts} = useContext(CartContext);
+
+  function getCart(){
+    getCartProducts()
+  }
+  useEffect(()=>{
+    getCart()
+  }, [])
+
 
   function logOut () {
     localStorage.removeItem('user.Token');
@@ -27,7 +38,12 @@ export default function Navbar() {
 <li className='px-3 py-2'> <NavLink to={''}>Home</NavLink> </li>
 <li className='px-3 py-2'> <NavLink to={'brands'}>Brands</NavLink> </li>
 <li className='px-3 py-2'> <NavLink to={'products'}>Products</NavLink> </li>
-<li className='px-3 py-2'> <NavLink to={'carts'}>Carts</NavLink> </li>
+<li className='px-3 py-2'> <NavLink className="relative" to={'carts'}>
+  Carts
+  <span class="absolute top-0 bg-red-500 text-white  text-xs font-medium me-2 px-2.5 py-0.5 rounded">
+    {noOfCartItem}
+    </span>
+    </NavLink> </li>
 </ul>
 
   :null}
