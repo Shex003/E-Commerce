@@ -7,13 +7,21 @@ export default function Carts() {
 
   const  [cartItems, setCartItems] = useState([]);
 
-  let {getCartProducts} = useContext(CartContext);
+  let {getCartProducts, deleteProduct} = useContext(CartContext);
    
    async function getCart(){
     let response = await getCartProducts();
     console.log(response.data.data.products, 'cart data');
     setCartItems(response.data.data.products)
    }
+
+   async function deleteItem(productId){
+    let response = await deleteProduct(productId);
+    setCartItems(response.data.data.products)
+    console.log(response);
+
+   }
+
     useEffect(()=>{
       getCart()
       
@@ -51,7 +59,7 @@ export default function Carts() {
     </thead>
     <tbody>
 
-      {cartItems.map((item)=>  <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+      {cartItems.map((item)=>  <tr key={item.product.id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
         <td className="p-4">
           <img src={item.product.imageCover} className="w-16 md:w-32 max-w-full max-h-full" alt="Apple Watch" />
         </td>
@@ -84,7 +92,7 @@ export default function Carts() {
           {item.price* item.count}€
         </td>
         <td className="px-6 py-4">
-          <a href="#" className="font-medium text-red-600 dark:text-red-500 hover:underline">Remove</a>
+          <a onClick={()=>deleteItem(item.product.id)} href="#" className="font-medium text-red-600 dark:text-red-500 hover:underline">Remove</a>
         </td>
       </tr>
      )}

@@ -44,6 +44,19 @@ console.log(headers)
         })
     }
 
-    return <CartContext.Provider value={{addProductToCart, getCartProducts}}>{props.children}
+    //Delete Product from Cart
+
+    async function deleteProduct(productId){
+        return await axios.delete(`https://ecommerce.routemisr.com/api/v1/cart/${productId}`,{
+            headers
+        }) .then((response)=>{
+          console.log(response);
+          return response;
+        }) .catch((error) => {
+          console.log(error);
+          return error;
+        })
+}
+    return <CartContext.Provider value={{addProductToCart, getCartProducts, deleteProduct}}>{props.children}
     </CartContext.Provider>
 }
