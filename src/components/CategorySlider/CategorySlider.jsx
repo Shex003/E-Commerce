@@ -29,7 +29,7 @@ export default function CategorySlider() {
   <div className='container py-5s'>
     <h2 className='py-4 text-gray-800 text-xl font-light'>Shop Popular Categoriies</h2>
   <Slider {...settings}>
-      {categories.map((category)=> <div className=''>
+      {categories.map((category)=> <div className='' >
       <img src={category.image} className='w-full h-52' alt={category.name} />
       <h3 className='font-light mt-2'>{category.name}</h3>
       </div>)}

@@ -15,6 +15,7 @@ import Login from './components/Login/Login';
 import UserContextProvider from './context/userContext';
 import ProtectedRoute from './components/protectedRoute/protectedRoute';
 import ProductDetails from './components/ProductDetails/ProductDetails';
+import { Toaster } from 'react-hot-toast';
 
 
 let x = createBrowserRouter([
@@ -37,6 +38,7 @@ function App() {
   return(
     <UserContextProvider>
           <RouterProvider router={x}></RouterProvider>
+          <Toaster/>
     </UserContextProvider>
 
   )

@@ -1,11 +1,18 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import style from './ProductDetails.module.css'
 import { useParams } from 'react-router-dom'
 import axios from 'axios'
 import Category from '../Category/Category'
 import Slider from "react-slick";
+import { CartContext } from '../../context/CartContext'
+
 
 export default function ProductDetails() {
+
+  let { addProductToCart } = useContext(CartContext);
+  async function addProductToCartHandler(productId) {
+    await addProductToCart(productId);
+  }
 
   let {id} = useParams()
   const [details, setDetails] = useState(null)
@@ -50,7 +57,7 @@ var settings = {
           <span>{details?.price}€</span>
           <span>{details?.ratingsQuantity}<i className='fas fa-star text-yellow-300'></i></span>
         </div>
-        <button className='btn'>Add To Cart</button>
+        <button onClick={()=> addProductToCartHandler(details.id)} className='btn'>Add To Cart</button>
     </div>
    </div>
     </div>
