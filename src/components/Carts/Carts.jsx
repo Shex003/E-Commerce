@@ -7,7 +7,7 @@ export default function Carts() {
 
   const  [cartItems, setCartItems] = useState([]);
 
-  let {getCartProducts, deleteProduct, updateCartItem, clearCart} = useContext(CartContext);
+  let {getCartProducts, deleteProduct, updateCartItem, clearCart, totalPrice} = useContext(CartContext);
    
    async function getCart(){
     let response = await getCartProducts();
@@ -112,6 +112,11 @@ export default function Carts() {
         </td>
       </tr>
      )}
+
+      <tr className="bg-white text-black text-center text-lg font-bold ">
+        <td className="p-4">Tottal Price</td>
+        <td className="p-4 col-span-5">{totalPrice}</td>
+      </tr>
 
      
     </tbody>

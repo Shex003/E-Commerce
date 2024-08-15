@@ -7,6 +7,8 @@ export let CartContext = createContext();
 export default function CartContextProvider(props) {
     
     const [noOfCartItem, setNoOfCartItem] = useState(0);
+    const [totalPrice, setTotalPrice] = useState(0);
+
     let headers = {
         token: localStorage.getItem('useToken')
     }
@@ -21,6 +23,7 @@ console.log(headers)
                 headers 
             }) .then((response)=>{
                 console.log(response.data.numOfCartItems);
+                setTotalPrice(response.data.data.totalCartPrice);
                 setNoOfCartItem(response.data.numOfCartItems);
                 toast.success(response.data.message);
                 return response;
@@ -39,6 +42,7 @@ console.log(headers)
           headers
         }) .then((response)=>{
           console.log(response);
+          setTotalPrice(response.data.data.totalCartPrice);
           setNoOfCartItem(response.data.numOfCartItems);
           return response;
         }) .catch((error) => {
@@ -54,6 +58,7 @@ console.log(headers)
             headers
         }) .then((response)=>{
           console.log(response);
+          setTotalPrice(response.data.data.totalCartPrice);
           setNoOfCartItem(response.data.numOfCartItems);
           return response;
         }) .catch((error) => {
@@ -71,6 +76,7 @@ console.log(headers)
                 headers
             }) .then((response)=>{
               console.log(response);
+              setTotalPrice(response.data.data.totalCartPrice);
               return response;
             }) .catch((error) => {
               console.log(error);
@@ -92,6 +98,6 @@ console.log(headers)
             })
         }
 
-    return <CartContext.Provider value={{addProductToCart, updateCartItem, getCartProducts, deleteProduct, clearCart, noOfCartItem}}>{props.children}
+    return <CartContext.Provider value={{addProductToCart, updateCartItem, getCartProducts, deleteProduct, clearCart, noOfCartItem, totalPrice}}>{props.children}
     </CartContext.Provider>
 }
