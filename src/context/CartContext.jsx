@@ -56,7 +56,24 @@ console.log(headers)
           console.log(error);
           return error;
         })
-}
-    return <CartContext.Provider value={{addProductToCart, getCartProducts, deleteProduct}}>{props.children}
+    }
+        //Update Product Quantity
+
+        async function updateCartItem(productId, count){
+            return await axios.put(`https://ecommerce.routemisr.com/api/v1/cart/${productId}`,{
+
+                count: count
+            } ,{
+                headers
+            }) .then((response)=>{
+              console.log(response);
+              return response;
+            }) .catch((error) => {
+              console.log(error);
+              return error;
+            });
+        }
+
+    return <CartContext.Provider value={{addProductToCart, updateCartItem, getCartProducts, deleteProduct}}>{props.children}
     </CartContext.Provider>
 }
