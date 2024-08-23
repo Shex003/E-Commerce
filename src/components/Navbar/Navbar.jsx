@@ -6,9 +6,8 @@ import {userContext} from '../../context/userContext'
 import {CartContext} from '../../context/CartContext'
 
 export default function Navbar() {
-
-  let {isLogin, setLogin} = useContext(userContext)
   let navigate = useNavigate();
+  let {isLogin, setLogin} = useContext(userContext)
   let {noOfCartItem, getCartProducts} = useContext(CartContext);
 
   function getCart(){
@@ -20,7 +19,7 @@ export default function Navbar() {
 
 
   function logOut () {
-    localStorage.removeItem('user.Token');
+    localStorage.removeItem('userToken');
     setLogin(null);
     navigate('/login')
     }

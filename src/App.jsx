@@ -18,21 +18,22 @@ import ProductDetails from './components/ProductDetails/ProductDetails';
 import { Toaster } from 'react-hot-toast';
 import AllOrders from './components/AllOrders/AllOrders';
 import CheckOut from './components/CheckOut/CheckOut';
+import ProtectedAuth from './components/ProtectedAuth/ProtectedAuth';
 
 
-let x = createBrowserRouter([
+let routes = createBrowserRouter([
   {path: '', element:<Layout/>, children: [
-    {index:true, element:<Home/>},
-    {path: 'categories' , element:<Categories/>},
+    {index:true, element:<ProtectedRoute><Home/></ProtectedRoute>},
+    {path: 'categories' , element:<ProtectedRoute><Categories/></ProtectedRoute>},
     {path: 'brands' , element:<ProtectedRoute><Brands/></ProtectedRoute> },
     {path: 'carts' , element:<ProtectedRoute><Carts/></ProtectedRoute>},
     {path: 'products' , element:<ProtectedRoute><Products/></ProtectedRoute>},
     {path: 'allOrders' , element:<ProtectedRoute><AllOrders/></ProtectedRoute>},
     {path: 'checkOut' , element:<ProtectedRoute><CheckOut/></ProtectedRoute>},
     {path: 'productDetails/:id/:category' , element:<ProtectedRoute><ProductDetails/></ProtectedRoute>},
-    {path: 'login' , element:<Login/>},
-    {path: 'register' , element:<Register/>},
-    {path: '*' , element:<Notfound/>},
+    {path: 'login' , element:<ProtectedAuth><Login/></ProtectedAuth>},
+    {path: 'register' , element:<ProtectedAuth><Register/></ProtectedAuth> },
+    {path: '*' , element:<ProtectedRoute><Notfound/></ProtectedRoute>},
   ]},
   
 ])
@@ -41,7 +42,7 @@ function App() {
 
   return(
     <UserContextProvider>
-          <RouterProvider router={x}></RouterProvider>
+          <RouterProvider router={routes}></RouterProvider>
           <Toaster/>
     </UserContextProvider>
 
