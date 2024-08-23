@@ -8,6 +8,7 @@ export default function CartContextProvider(props) {
     
     const [noOfCartItem, setNoOfCartItem] = useState(0);
     const [totalPrice, setTotalPrice] = useState(0);
+    const [cartId, setCartId] = useState(null);
 
     let headers = {
         token: localStorage.getItem('useToken')
@@ -22,7 +23,8 @@ console.log(headers)
              {
                 headers 
             }) .then((response)=>{
-                console.log(response.data.numOfCartItems);
+                console.log(response.data.data._id, "add");
+                setCartId(response.data.data._id);
                 setTotalPrice(response.data.data.totalCartPrice);
                 setNoOfCartItem(response.data.numOfCartItems);
                 toast.success(response.data.message);
@@ -42,6 +44,7 @@ console.log(headers)
           headers
         }) .then((response)=>{
           console.log(response);
+          setCartId(response.data.data._id);
           setTotalPrice(response.data.data.totalCartPrice);
           setNoOfCartItem(response.data.numOfCartItems);
           return response;
@@ -76,13 +79,34 @@ console.log(headers)
                 headers
             }) .then((response)=>{
               console.log(response);
-              setTotalPrice(response.data.data.totalCartPrice);
+              setCartId(response.data.data._id);
+              setTotalPrice(response.data.data.totalCartPrice); 
               return response;
             }) .catch((error) => {
               console.log(error);
               return error;
             });
         }
+
+        //Pay Online
+
+        async function onlinePayment(shippingAddress){
+          return await axios.post(`https://ecommerce.routemisr.com/api/v1/orders/checkout-session/${cartId}?url=http://localhost:5173`,{
+
+            shippingAddress
+          } ,{
+              headers
+          }) .then((response)=>{
+            console.log(response.data.session.url); 
+            // setTotalPrice(response.data.data.totalCartPrice);
+            // setNoOfCartItem(response.data.numOfCartItems);
+            window.location.href= response.data.session.url;
+            return response;
+          }) .catch((error) => {
+            console.log(error);
+            return error;
+          });
+      }
 
         //Clear Cart products
 
@@ -98,6 +122,6 @@ console.log(headers)
             })
         }
 
-    return <CartContext.Provider value={{addProductToCart, updateCartItem, getCartProducts, deleteProduct, clearCart, noOfCartItem, totalPrice}}>{props.children}
+    return <CartContext.Provider value={{addProductToCart, updateCartItem, getCartProducts, deleteProduct, clearCart, noOfCartItem, totalPrice, onlinePayment}}>{props.children}
     </CartContext.Provider>
 }

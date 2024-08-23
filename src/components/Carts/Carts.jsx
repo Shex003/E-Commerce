@@ -1,7 +1,7 @@
 import React, {useContext, useEffect, useState} from "react";
 import style from './Carts.module.css'
 import { CartContext } from "../../context/CartContext";
-
+import { Link } from "react-router-dom";
 
 export default function Carts() {
 
@@ -115,7 +115,9 @@ export default function Carts() {
 
       <tr className="bg-white text-black text-center text-lg font-bold ">
         <td className="p-4">Tottal Price</td>
-        <td className="p-4 col-span-5">{totalPrice}</td>
+        <td className="p-4 col-span-4">{totalPrice}</td>
+        <td className="p-4"> <Link to="/checkout" className="px-3 py-2 bg-green-300 rounded-md text-white"> Ckeckout </Link> </td>
+
       </tr>
 
      
