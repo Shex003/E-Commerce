@@ -6,33 +6,43 @@ import { Link } from 'react-router-dom'
 import CategorySlider from '../CategorySlider/CategorySlider'
 import MiniSlider from '../MiniSlider/MiniSlider'
 import { CartContext } from '../../context/CartContext'
+import { useQuery } from '@tanstack/react-query'
 
 export default function Home() {
 
-  const { addProductToCart } = useContext(CartContext);
-  async function addToCart(productId) {
-  let response =  await addProductToCart(productId);
-  console.log(response);
-  }
+//   const { addProductToCart } = useContext(CartContext);
+//   async function addToCart(productId) {
+//   let response =  await addProductToCart(productId);
+//   console.log(response);
+//   }
    
-  const [product, setProduct] = useState([])
-  const [isLoading, setLoading] = useState(true)
+//   const [product, setProduct] = useState([])
+//   const [isLoading, setLoading] = useState(true)
 
-function getProducts() {
-  axios.get('https://ecommerce.routemisr.com/api/v1/products')
-  .then(({data})=>{setProduct(data.data)
-    setLoading(false)
-  })
-  .catch(()=>{
-    setLoading(false)
-  })
-}
+// function getProducts() {
+//   axios.get('https://ecommerce.routemisr.com/api/v1/products')
+//   .then(({data})=>{setProduct(data.data)
+//     setLoading(false)
+//   })
+//   .catch(()=>{
+//     setLoading(false)
+//   })
+// }
 
 
-useEffect(()=>{
-  getProducts()
-},[])
+// useEffect(()=>{
+//   getProducts()
+// },[])
 
+  // ReactQuery ---------------------------------------------------------
+    function getProducts() {
+      return axios.get('https://ecommerce.routemisr.com/api/v1/products')
+    }
+
+    let {data, isLoading, isError, isFetching, error} = useQuery({
+      queryKey: 'products',
+      queryFn: getProducts
+    })
 
   return <>
   <MiniSlider/>
@@ -41,7 +51,7 @@ useEffect(()=>{
     {
       !isLoading?
       <div className='row gap-3'>
-    {product.map((productInfo)=>{
+    {data?.data?.data.map((productInfo)=>{
       return <div className='w-2/12 px-4 mt-3 product' key={productInfo.id}>
         <div className='bg-slate-100  p-2'>
         <Link to={`productDetails/${productInfo.id}/${productInfo.category.name}`}>

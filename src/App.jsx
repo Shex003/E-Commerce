@@ -19,6 +19,9 @@ import { Toaster } from 'react-hot-toast';
 import AllOrders from './components/AllOrders/AllOrders';
 import CheckOut from './components/CheckOut/CheckOut';
 import ProtectedAuth from './components/ProtectedAuth/ProtectedAuth';
+import {QueryClient,QueryClientProvider} from '@tanstack/react-query'
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+
 
 
 let routes = createBrowserRouter([
@@ -39,12 +42,16 @@ let routes = createBrowserRouter([
 ])
 
 function App() {
+  const queryClient = new QueryClient()
 
   return(
+    <QueryClientProvider client={queryClient}>
     <UserContextProvider>
           <RouterProvider router={routes}></RouterProvider>
           <Toaster/>
+          <ReactQueryDevtools initialIsOpen={false} />
     </UserContextProvider>
+    </QueryClientProvider>
 
   )
   
