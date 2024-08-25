@@ -21,6 +21,7 @@ import CheckOut from './components/CheckOut/CheckOut';
 import ProtectedAuth from './components/ProtectedAuth/ProtectedAuth';
 import {QueryClient,QueryClientProvider} from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+import { Offline } from "react-detect-offline";
 
 
 
@@ -45,6 +46,14 @@ function App() {
   const queryClient = new QueryClient()
 
   return(
+    <>
+    <Offline>
+    <div className="fixed bottom-4 right-2 w-36 h-6 text-center text-sm text-red-800 border border-red-300 rounded-lg bg-red-50 dark:text-red-400 dark:border-red-800" role="alert">
+    You Are Offline!
+    </div>
+    </Offline>
+    
+
     <QueryClientProvider client={queryClient}>
     <UserContextProvider>
           <RouterProvider router={routes}></RouterProvider>
@@ -52,7 +61,7 @@ function App() {
           <ReactQueryDevtools initialIsOpen={false} />
     </UserContextProvider>
     </QueryClientProvider>
-
+    </>
   )
   
 }
