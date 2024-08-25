@@ -5,6 +5,7 @@ import axios from 'axios'
 import Category from '../Category/Category'
 import Slider from "react-slick";
 import { CartContext } from '../../context/CartContext'
+import {Helmet} from "react-helmet";
 
 
 export default function ProductDetails() {
@@ -37,6 +38,12 @@ var settings = {
 };
 
   return <>
+  <Helmet>
+      <meta charSet="utf-8" />
+      <title>{details?.title}</title>
+      <meta name="keywords" content= {details?.slug} />
+    </Helmet>
+
    <div className='container'>
    <div className='row justify-center items-center gap-3'>
     <div className='w-1/4'>

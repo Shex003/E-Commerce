@@ -7,6 +7,7 @@ import CategorySlider from '../CategorySlider/CategorySlider'
 import MiniSlider from '../MiniSlider/MiniSlider'
 import { CartContext } from '../../context/CartContext'
 import { useQuery } from '@tanstack/react-query'
+import {Helmet} from "react-helmet";
 
 export default function Home() {
 
@@ -39,12 +40,17 @@ export default function Home() {
       return axios.get('https://ecommerce.routemisr.com/api/v1/products')
     }
 
-    let {data, isLoading, isError, isFetching, error} = useQuery({
-      queryKey: 'products',
+    const {data, isLoading, isError, isFetching, error} = useQuery({
+      queryKey: ['home'],
       queryFn: getProducts
     })
 
   return <>
+    <Helmet>
+      <meta charSet="utf-8" />
+      <title>Home </title>
+    </Helmet>
+
   <MiniSlider/>
   <CategorySlider/>
     <div className='container mt-5'>

@@ -2,6 +2,7 @@ import React, {useContext, useEffect, useState} from "react";
 import style from './Carts.module.css'
 import { CartContext } from "../../context/CartContext";
 import { Link } from "react-router-dom";
+import {Helmet} from "react-helmet";
 
 export default function Carts() {
 
@@ -44,7 +45,10 @@ export default function Carts() {
 
   return (
   <>
-    
+    <Helmet>
+      <meta charSet="utf-8" />
+      <title>Carts </title>
+    </Helmet>
 
 <div className="relative  overflow-x-auto shadow-md sm:rounded-lg">
   <div className="text-right">

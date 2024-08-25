@@ -5,6 +5,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 import { userContext } from '../../context/userContext';
+import {Helmet} from "react-helmet";
 
 // export default function Register() {
 // let navigate = useNavigate()
@@ -68,6 +69,10 @@ let formik = useFormik({
 })
 
   return <>
+    <Helmet>
+      <meta charSet="utf-8" />
+      <title>Register </title>
+    </Helmet>
     <div className="bg-gray-100 flex h-screen items-center justify-center px-4 sm:px-6 lg:px-8">
     <div className="w-full max-w-md space-y-8">
         <div className="bg-white shadow-md rounded-md p-6">
