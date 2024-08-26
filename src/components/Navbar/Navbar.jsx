@@ -18,11 +18,11 @@ export default function Navbar() {
   }, [])
 
 
-  function logOut () {
+  function logOut() {
     localStorage.removeItem('userToken');
     setLogin(null);
-    navigate('/login')
-    }
+    navigate('/login');
+  }
 
 
 
@@ -31,7 +31,7 @@ export default function Navbar() {
   <div className='flex justify-between lg:items-center flex-col  lg:flex-row'>
   <div className='logo flex flex-col lg:flex-row lg:items-center'>
   <img scr={img} width={110} alt='frech-card'/>
-  {isLogin?
+  {isLogin? (
 
 <ul className='flex flex-col lg:flex-row'>
 <li className='px-3 py-2'> <NavLink to={''}>Home</NavLink> </li>
@@ -42,10 +42,11 @@ export default function Navbar() {
   <span class="absolute top-0 bg-red-500 text-white  text-xs font-medium me-2 px-2.5 py-0.5 rounded">
     {noOfCartItem}
     </span>
-    </NavLink> </li>
+    </NavLink> 
+    </li>
 </ul>
 
-  :null}
+  ) :null}
  
   </div>
 

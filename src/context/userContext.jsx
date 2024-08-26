@@ -8,8 +8,8 @@ export default function UserContextProvider(props){
     const[isLogin, setLogin] = useState(null);
 
 useEffect(() =>{
-    if(localStorage.getItem('useToken') !== null) {
-        setLogin(localStorage.getItem('useToken'))
+    if(localStorage.getItem('userToken') !== null) {
+        setLogin(localStorage.getItem('userToken'))
     }
 },[])
 
@@ -17,4 +17,4 @@ useEffect(() =>{
         {props.children}
     </userContext.Provider>
 
-}
+} 

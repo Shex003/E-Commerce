@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react'
+import React, { useEffect, useState, useContext, useRef } from 'react'
 import style from './ProductDetails.module.css'
 import { useParams } from 'react-router-dom'
 import axios from 'axios'
@@ -9,6 +9,8 @@ import {Helmet} from "react-helmet";
 
 
 export default function ProductDetails() {
+
+  const toTop = useRef();
 
   let { addProductToCart } = useContext(CartContext);
   async function addProductToCartHandler(productId) {
@@ -37,6 +39,10 @@ var settings = {
   slidesToScroll: 1,
 };
 
+  function handleToTop(){
+      toTop.current.scrollIntoView({ behavior: "smooth" });
+  }
+  // onClick={handleToTop} ..where?!
   return <>
   <Helmet>
       <meta charSet="utf-8" />
@@ -46,7 +52,7 @@ var settings = {
 
    <div className='container'>
    <div className='row justify-center items-center gap-3'>
-    <div className='w-1/4'>
+    <div className='w-1/4' ref={toTop}>
     <Slider {...settings}>
       {details?.images.map((scr)=>  <img src={scr} className='w-full' alt={details?.title} />
 )}
@@ -69,8 +75,8 @@ var settings = {
    </div>
     </div>
   </div>
-
-  <Category categoryName={details?.category?.name}/>
-    
+  
+  <Category categoryName={details?.category?.name} />
+  {/* <button onClick={handleToTop} className='btn'>To Top</button> */}
     </>
-}
+} 

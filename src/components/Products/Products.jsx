@@ -3,7 +3,6 @@ import style from './Products.module.css'
 import axios from 'axios'
 import Loader from '../loader/loader'
 import { Link } from 'react-router-dom'
-import CategorySlider from '../CategorySlider/CategorySlider'
 import MiniSlider from '../MiniSlider/MiniSlider'
 import { CartContext } from '../../context/CartContext'
 import { useQuery } from '@tanstack/react-query'
@@ -12,10 +11,10 @@ import {Helmet} from "react-helmet";
 
 export default function Products() {
 
-  const {data, isLoading, isError, isFetching, error} = useFetch(
-    `https://ecommerce.routemisr.com/api/v1/products`,
-    "Products"
-  );
+  // const {data, isLoading, isError, isFetching, error} = useFetch(
+  //   `https://ecommerce.routemisr.com/api/v1/products`,
+  //   "Products"
+  // );
 
   // const {data, isLoading, isError, isFetching, error} = useQuery({
   //   queryKey: 'Products',
@@ -25,12 +24,21 @@ export default function Products() {
   // function getProducts() {
   //   return axios.get('https://ecommerce.routemisr.com/api/v1/products')
   // }
+  function getProducts() {
+    return axios.get('https://ecommerce.routemisr.com/api/v1/products')
+  }
+
+  const {data, isLoading, isError, isFetching, error} = useQuery({
+    queryKey: ['products'],
+    queryFn: getProducts
+  })
 
 return <>
-<Helmet>
+    <Helmet>
       <meta charSet="utf-8" />
       <title>Products </title>
     </Helmet>
+    
 <MiniSlider/>
   <div className='container mt-5'>
   {
@@ -61,3 +69,4 @@ return <>
   </div>
   </>
 }
+ 

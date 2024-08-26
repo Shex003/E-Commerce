@@ -9,3 +9,4 @@ export default function ProtectedAuth(props) {
   return props.children 
  }
 }
+
