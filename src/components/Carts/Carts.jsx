@@ -98,7 +98,7 @@ export default function Carts() {
                       </svg>
                     </button>
                     <div>
-                      <span>{item.count}</span>
+                      <span className="dark:text-gray-900">{item.count}</span>
                     </div>
                     <button onClick={() => updateProduct(item.product.id, item.count + 1)} className="inline-flex items-center justify-center h-6 w-6 p-1 ms-3 text-sm font-medium text-black  border border-gray-300 rounded-full focus:outline-none focus:ring-4 focus:ring-gray-200 bg-green-300 dark:text-gray-900 dark:border-gray-600 hover:bg-green-700 dark:hover:border-gray-600 dark:focus:ring-gray-700" type="button">
                       <span className="sr-only">Quantity button</span>

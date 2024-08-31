@@ -12,6 +12,11 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+    padding-top: 4rem; /* Adjust the value as needed */
+  }
+  
+
 .row {
     @apply flex flex-wrap py-8 px-6 justify-center;
 }

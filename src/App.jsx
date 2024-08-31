@@ -22,6 +22,7 @@ import ProtectedAuth from './components/ProtectedAuth/ProtectedAuth';
 import {QueryClient,QueryClientProvider} from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { Offline } from "react-detect-offline";
+import ScrollToTop from './components/ScrollToTop/ScrollToTop';
 
 
 
@@ -56,9 +57,11 @@ function App() {
 
     <QueryClientProvider client={queryClient}>
     <UserContextProvider>
-          <RouterProvider router={routes}></RouterProvider>
+          <RouterProvider router={routes}>
+          <ScrollToTop />
           <Toaster/>
           <ReactQueryDevtools initialIsOpen={false} />
+          </RouterProvider>
     </UserContextProvider>
     </QueryClientProvider>
     </>
